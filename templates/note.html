@@ -6,5 +6,16 @@
 </head>
 <body>
 
+database content so far:
+<br/>
+{% for key, value in db.items %}
+    {{ value.0 }}: {{ value.1 }}
+    <br/>
+{% endfor %}
+
+Your message id:
+
+{{ msg_id }}
+
 </body>
 </html>
