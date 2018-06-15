@@ -1,25 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block content %}
 
-database content so far:
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col" style="margin:auto;">
+            <label>URL to your message: </label>
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col-md-1"></div>
+        <div class="col-md-7">
+            <input type="url" class="form-control" value="{{ request.build_absolute_uri }}note/show/{{ msg_id }}"
+                   spellcheck="false" id="msg_id">
+        </div>
+        <button class="btn" onclick="copyToClipboard()">Copy to clipboard</button>
+    </div>
+    <div class="col-md-1"></div>
+</div>
 <br/>
-{% for key, value in db.items %}
-    {{ value.0 }}: {{ value.1 }}
-    <br/>
-{% endfor %}
+<button class='btn text-center' onclick="location.href='{% url 'note_show' msg_id %}'">go to the note</button>
+</div>
 
-Your message id:
-
-{{ msg_id }}
-
-<br/>
-
-<button onclick="location.href='{% url 'note_show' msg_id %}'">go to the note</button>
-
-</body>
-</html>
+<script>
+    function copyToClipboard() {
+    var text = document.getElementById("msg_id");
+    text.select();
+    document.execCommand("copy");
+    }
+</script>
+{% endblock %}
