@@ -12,14 +12,6 @@ def create_session():
         del r
 
 
-def get_message(message_id):
-    pass
-
-
-def set_message(message_id):
-    pass
-
-
 def clear_db():
     r = redis.Redis()
     return r.flushdb()
