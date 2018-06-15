@@ -19,7 +19,14 @@ def index_view(request):
     return render(request, 'index.html', {'form': form})
 
 
-def note_show_view(request, msg_id):
+def show_note_view(request, msg_id):
     with create_session() as session:
-        msg_body = session.get(msg_id).decode('utf-8')
-        return render(request, 'show_note.html', {'msg_body': msg_body})
+        try:
+            msg_body = session.get(msg_id).decode('utf-8')
+        except AttributeError:
+            msg_body = 'message was destroyed already'
+        else:
+            session.delete(msg_id)
+            msg_body = msg_body
+        finally:
+            return render(request, 'show_note.html', context={'msg_body': msg_body})
