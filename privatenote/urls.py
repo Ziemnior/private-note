@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from note.views import index_view, note_show_view
+from note.views import index_view, show_note_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index_view, name='index'),
-    re_path(r'^note/show/(?P<msg_id>\w+)/$', note_show_view, name='note_show'),
+    re_path(r'^note/show/(?P<msg_id>\w+)/$', show_note_view, name='note_show'),
 ]

@@ -2,6 +2,15 @@
 {% block content %}
 
 <div class="containter">
+    <div class="col card card-body bg-light text-secondary border-info">
+        What is Private Note and how to use it: <br/>
+        Private Note is a web-service build with Django and Redis and serves purpose of sending anonymous, encrypted
+        messages, without fear that your message will be read more than once.
+        Type message below and click 'submit message'. You'll be redirected to page that contains shareable, one-time
+        working link to your message. Your message is being cyphered using AES. Once you display the message, it will be
+        gone forever.
+    </div>
+    <br/>
     <div class="col-* form-group">
         <form method="POST" autocomplete="off" novalidate>
             {% csrf_token %}
