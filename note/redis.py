@@ -23,3 +23,11 @@ def set_message(message_id):
 def clear_db():
     r = redis.Redis()
     return r.flushdb()
+
+
+def display_db():
+    db = dict()
+    with create_session() as session:
+        for i, x in enumerate(session.scan_iter()):
+            db[i] = (x, session.get(x))
+    print(db)
