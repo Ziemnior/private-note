@@ -21,5 +21,5 @@ def display_db():
     db = dict()
     with create_session() as session:
         for i, x in enumerate(session.scan_iter()):
-            db[i] = (x, session.get(x))
+            db[i] = (x, session.lrange(x, 0, -1))
     print(db)
