@@ -23,14 +23,13 @@ def index_view(request):
     return render(request, 'index.html', {'form': form})
 
 
-def check_if_note_exists(context):
+def confirmation_context_helper(context):
     with create_session() as session:
         message = session.lrange(context['msg_id'], 0, -1)
-        print(context['msg_id'])
-    return True if message else False
+        return True if message else None
 
 
-@confirm_required('confirm.html', check_if_note_exists)
+@confirm_required('confirm.html', confirmation_context_helper)
 def show_note_view(request, msg_id):
     with create_session() as session:
         msg_body_ciphered = session.lrange(msg_id, 0, -1)
