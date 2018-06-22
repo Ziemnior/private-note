@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+
+<br/>
+<div class="container">
+    <div class="col-md-offset-4">
+        <form method="POST" novalidate>
+            {% csrf_token %}
+            <input type="hidden" name="__confirm__" value="1">
+            <input class="btn btn-danger" type="submit" value="Proceed to the note">
+            <a class="btn btn-success btn-sm" href="{% url 'index' %}">go to main page</a>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
