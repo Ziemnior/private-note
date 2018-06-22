@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.utils.functional import wraps
-from .redis_utils import create_session
 
 
 def confirm_required(template_name, context_creator, key='__confirm__'):
