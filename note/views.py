@@ -23,10 +23,16 @@ def index_view(request):
     return render(request, 'index.html', {'form': form})
 
 
-@confirm_required('confirm.html')
 def show_note_view(request, msg_id):
     with create_session() as session:
         msg_body_ciphered = session.lrange(msg_id, 0, -1)
-        session.delete(msg_id)
-        msg_body = Ciphering.decipher_message(msg_id.encode(), msg_body_ciphered)
+        if not msg_body_ciphered:
+            return render(request, 'show_note.html', {'msg_body': 'No such message (Or it was destroyed already)'})
+        else:
+            if '__confirm__' in request.POST:
+                session.delete(msg_id)
+                msg_body = Ciphering.decipher_message(msg_id.encode(), msg_body_ciphered)
+            else:
+                return render(request, 'confirm.html', {})
+
     return render(request, 'show_note.html', context={'msg_body': msg_body})
