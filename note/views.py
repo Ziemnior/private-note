@@ -34,5 +34,4 @@ def show_note_view(request, msg_id):
                 msg_body = Ciphering.decipher_message(msg_id.encode(), msg_body_ciphered)
             else:
                 return render(request, 'confirm.html', {})
-
     return render(request, 'show_note.html', context={'msg_body': msg_body})
