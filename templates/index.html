@@ -1,28 +1,53 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="containter">
-    <div class="col card card-body bg-light text-secondary border-info">
-        What is Private Note and how to use it: <br/>
-        Private Note is a web-service build with Django and Redis and serves purpose of sending anonymous, encrypted
-        messages, without fear that your message will be read more than once.
-        Type message below and click 'submit message'. You'll be redirected to page that contains shareable, one-time
-        working link to your message. Your message is being cyphered using AES. Once you display the message, it will be
-        gone forever.
+<div class="container form-group">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col card card-body bg-light text-secondary border-info">
+                What is Private Note and how to use it: <br/>
+                Private Note is a web-service build with Django and Redis and serves purpose of sending anonymous,
+                encrypted
+                messages, without fear that your message will be read more than once.
+                Type message below and click 'submit message'. You'll be redirected to page that contains shareable,
+                one-time
+                working link to your message. Your message is being cyphered using AES. Once you display the message, it
+                will be
+                gone forever.
+            </div>
+        </div>
     </div>
-    <br/>
-    <div class="col-* form-group">
-        <form method="POST" autocomplete="off" novalidate>
-            {% csrf_token %}
-            <div class="row">
+    <form method="POST" autocomplete="off" novalidate>
+        {% csrf_token %}
+        <div class="row-*">
+            <div class="col-xs-12">
+                <br/>
                 <textarea class="form-control" name="message_body"></textarea>
             </div>
-            <br/>
-            <div class="row-md-4 text-center">
-                <input class="btn" type="submit" value="submit message">
+        </div>
+        <div class="row text-center">
+            <div class="col-md-4"></div>
+            <div class="col-md-2">
+                <br/>
+                <select class="form-control" name="message_ttl" id="message_ttl">
+
+                    <option value="10">10 seconds</option>
+                    <option value="60">60 seconds</option>
+                    <option value="300">5 minutes</option>
+                    <option value="600">10 minutes</option>
+                    <option value="1800">30 minutes</option>
+                    <option value="3600">1 hour</option>
+                    <option value="86400">1 day</option>
+                    <option value="2629743">1 month</option>
+                    <option value="31556926">1 year</option>
+                </select>
             </div>
-        </form>
-    </div>
+            <div class="col-md-2">
+                <br/>
+                <input class="btn" type="submit" value="submit message"></div>
+        </div>
+        <div class="col-md-5"></div>
+    </form>
 </div>
 
 {% endblock %}
