@@ -5,7 +5,6 @@ from random import randint
 from .forms import CreateMessageForm
 from .redis_utils import create_session
 from .ciphering import Ciphering
-from .decorators import confirm_required
 
 
 def index_view(request):
@@ -14,9 +13,11 @@ def index_view(request):
         if form.is_valid():
             message_id = uuid.uuid5(uuid.NAMESPACE_URL, str(randint(0, 100))).hex
             message_body = form.cleaned_data.get('message_body')
+            message_ttl = request.POST['message_ttl']
             msg_body_ciphered = Ciphering.cipher_message(message_id.encode(), message_body)
             with create_session() as session:
                 session.rpush(message_id, *msg_body_ciphered)
+                session.expire(message_id, message_ttl)
             return render(request, 'note.html', {'msg_id': message_id})
     else:
         form = CreateMessageForm()
